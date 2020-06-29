@@ -1,0 +1,25 @@
+[package]
+name = "run_web_promo"
+version = "0.1.0"
+authors = ["the_r"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rocket = "0.4.5"
+chrono = "0.4.11"
+clap = "2.33.0"
+crossbeam = "0.7.3"
+router = "0.6.0"
+urlencoded = "0.6.0"
+bodyparser = "0.8.0"
+multipart = "0.17.0"
+hyper = "0.13.6"
+iron = "0.6.1"
+mime = "0.3.16"
+mime_multipart = "0.5.2"
+staticfile = "0.5.0"
+
+[dependencies.promo_fin]
+git = "ssh://git@github.com/RedHelmut/promo_fin.git"
