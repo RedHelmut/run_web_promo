@@ -3,6 +3,14 @@ name = "run_web_promo"
 version = "0.1.0"
 authors = ["the_r"]
 edition = "2018"
+cargo-features = ["edition"]
+
+
+[[bin]]
+name = "run_web_promo"
+path = "src/main.rs"
+test = false
+bench = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -22,4 +30,4 @@ mime_multipart = "0.5.2"
 staticfile = "0.5.0"
 
 [dependencies.promo_fin]
-git = "ssh://git@github.com/RedHelmut/promo_fin.git"
+git = "https://github.com/RedHelmut/promo_fin"

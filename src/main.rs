@@ -69,6 +69,7 @@ fn upload(data: Data) -> Option<NamedFile> {//Result<String, Debug<io::Error>> {
 */
 
 fn get_form(_request: &mut iron::Request) -> IronResult <iron::Response> {
+    println!("Index");
     let mut response = iron::Response::new();
     response.set_mut( iron::status::Ok);
    // let mi: mime::Mime = "Text/Html;Charset=Utf8".parse().unwrap();
@@ -197,7 +198,7 @@ fn process_entries(entries: Entries) -> IronResult<iron::Response> {
             use multipart::server::save::SavedData::*;
 
             match &saved_field.data {
-                Text(text) => {},
+                Text(_) => {},
                 Bytes(bytes) => {
                     //not in file format so write to file
                     match to_be_the_name_of_file.as_ref() {
@@ -250,7 +251,7 @@ fn process_entries(entries: Entries) -> IronResult<iron::Response> {
                 File(file, _size) => {
                     match to_be_the_name_of_file.as_ref() {
                         x if x == "uploaded_promo_file" || x == "uploaded_csv_file" => {
-                            let path_buffer = file.to_path_buf();
+                            //let path_buffer = file.to_path_buf();
                             let file_path = file.to_path_buf().to_str().unwrap().to_owned();
 
                             let mut add_ext = None;
@@ -292,7 +293,7 @@ fn process_entries(entries: Entries) -> IronResult<iron::Response> {
                 Some( zip_path ) => {
 
                     match run_missing_reports::<File>(csv, json, None, zip_path) {
-                        Ok(k) => {
+                        Ok(_) => {
                             let pth = PathBuf::from(zip_path);
                             Ok(iron::Response::with((iron::status::Ok, pth)))
                         }
@@ -323,7 +324,7 @@ fn process_entries(entries: Entries) -> IronResult<iron::Response> {
 }
 fn process_request(request: &mut Request) -> IronResult<Response> {
     // Getting a multipart reader wrapper
-
+    println!("Run Promo");
     match Multipart::from_request(request) {
         Ok(mut multipart) => {
             // Fetching all data and processing it.
@@ -351,6 +352,7 @@ fn process_request(request: &mut Request) -> IronResult<Response> {
 }
 
 fn main() {
+    println!("Running");
     let mut router = Router::new();
     router.get("/", get_form, "root");
     router.post("/3mInfo", process_request, "gcd");
@@ -360,6 +362,6 @@ fn main() {
         .mount("/", router )
         .mount("/assets/", Static::new(Path::new("src/assets")));*/
 
-    Iron::new(router).http("127.0.0.1:8080").unwrap();
+    Iron::new(router).http("0.0.0.0:8080").unwrap();
 
 }
